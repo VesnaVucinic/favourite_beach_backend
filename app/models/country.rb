@@ -1,3 +1,3 @@
 class Country < ApplicationRecord
-    #has_many :beaches
+    has_many :beaches, dependent: :destroy
 end
