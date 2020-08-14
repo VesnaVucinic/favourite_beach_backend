@@ -3,7 +3,7 @@ class CreateBeaches < ActiveRecord::Migration[6.0]
     create_table :beaches do |t|
       t.string :name
       t.string :location
-      t.string :deascription
+      t.string :description
       t.string :image_url
       t.references :country, null: false, foreign_key: true
 
