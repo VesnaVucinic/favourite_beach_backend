@@ -8,6 +8,7 @@ class Api::V1::BeachesController < ApplicationController
 
     def create
         beach = Beach.new(beach_params)
+        #  byebug
         if beach.save
             render json: beach, status: :accepted
         else
