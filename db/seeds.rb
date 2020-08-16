@@ -11,7 +11,6 @@ Beach.destroy_all
 
 greece = Country.create(name: "Greece")
 spain = Country.create(name: "Spain")
-portugal = Country.create(name: "Portugal")
 france = Country.create(name: "France")
 
 Beach.create(name: "Kassiopi", location: "Corfu", description: "This relatively remote but beloved beach is ideal for those who love diving from the rocks in a pool-like sea.", image_url: "https://iltesorivillas.com/wp-content/uploads/2017/12/rsz_il_tesori_villas_kerkyra-2.jpg", country_id: greece.id)
