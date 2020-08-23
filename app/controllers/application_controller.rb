@@ -12,5 +12,18 @@ class ApplicationController < ActionController::API
         request.headers['Authorization']
     end
     
+      # WHY?: `JWT.decode` takes three arguments as well: a JWT as a string, an application secret, and––optionally––a hashing algorithm.
+    def decoded_token
+        if auth_header
+            token = auth_header.split(' ')[1]
+            # header: { 'Authorization': 'Bearer <token>' }
+            # The Begin/Rescue syntax allows us to rescue out of an exception in Ruby.
+            begin
+                JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+            rescue JWT::DecodeError
+                nil
+            end
+        end
+    end
 
 end
