@@ -5,9 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+User.destroy_all
 Country.destroy_all
 Beach.destroy_all
+
+vesna = User.create(email: "vesna@vesna.com", password: "masha" )
 
 greece = Country.create(name: "Greece")
 spain = Country.create(name: "Spain")
