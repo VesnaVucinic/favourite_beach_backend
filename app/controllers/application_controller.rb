@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
-  
+    # WHY?: Will call the authorized method before anything else happens in our app. This will effectively lock down the entire application.
+    before_action :authorized
     # STEP 1: Encode/Decode Tokens
-  # WHY?: `JWT.encode` takes up to three arguments: a payload to encode, an application secret of the developer's choice, and an optional third that can be used to specify the hashing algorithm used. Typically, we don't need to show the third. This method returns a JWT as a string.
+    # WHY?: `JWT.encode` takes up to three arguments: a payload to encode, an application secret of the developer's choice, and an optional third that can be used to specify the hashing algorithm used. Typically, we don't need to show the third. This method returns a JWT as a string.
     def encode_token(payload)
         # should store secret in env variable
         JWT.encode(payload, 'my_s3cr3t')
@@ -24,6 +25,26 @@ class ApplicationController < ActionController::API
                 nil
             end
         end
+    end
+
+    # STEP 2: Authentication helper methods
+    def current_user
+        if decoded_token
+        # JWT.decode => [{"user_id"=> 1}, {"alg"=>"HS526"}]
+        # [0] gives us payload {"user_id"=> 1}
+        user_id = decoded_token[0]['user_id']
+        @user = User.find_by(id: user_id)
+        end
+    end
+
+    def logged_in?
+        !!current_user
+        # returns a boolean instead of truthy user object
+    end
+    
+      # STEP 3: Authorization helper methods
+    def authorized
+        render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
     end
 
 end
