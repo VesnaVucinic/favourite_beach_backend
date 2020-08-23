@@ -14,3 +14,4 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
   end
 end
+# '*' means accepting calls from anywhere, in future can be localhost or whatever domain name my frontend is hosted up
