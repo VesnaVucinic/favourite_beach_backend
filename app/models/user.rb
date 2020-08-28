@@ -4,6 +4,6 @@ class User < ApplicationRecord
     has_many :beaches, dependent: :destroy
 
 
-    validates_presence_of :email
+    validates :email, presence: true
     validates :email, uniqueness: { case_sensitive: false }
 end
