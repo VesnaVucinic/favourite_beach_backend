@@ -1,5 +1,6 @@
 class Api::V1::BeachesController < ApplicationController
-    skip_before_action :authorized, only: [:index]
+
+    before_action :authorized, only: [:create]
 
     def index
         beaches = Beach.all #when I am dealing with views I have to pass instance variables to the view but renderin JSON don't eed instance variable can be just beach 
@@ -8,13 +9,13 @@ class Api::V1::BeachesController < ApplicationController
     end
 
     def create
-        # beach = current_user.beaches.build(beach_params)
-        beach = Beach.new(beach_params)
-          #byebug
+        beach = current_user.beaches.build(beach_params)
+        # beach = Beach.new(beach_params)
         if beach.save
+            # byebug
             render json: BeachSerializer.new(beach), status: :accepted
         else
-            render json: {errors: beach.errors.full_messages}, status: :unprocessible_entity # server undertand request and syntax of requestis correct but validations faield
+            render json: {errors: beach.errors.full_messages}, status: :unprocessable_entity # server undertand request and syntax of requestis correct but validations faield
         end
     end
 
