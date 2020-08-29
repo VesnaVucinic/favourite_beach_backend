@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
     # WHY?: Will call the authorized method before anything else happens in our app. This will effectively lock down the entire application.
-    # before_action :authorized
+    before_action :authorized
     # STEP 1: Encode/Decode Tokens
     # WHY?: `JWT.encode` takes up to three arguments: a payload to encode, an application secret of the developer's choice, and an optional third that can be used to specify the hashing algorithm used. Typically, we don't need to show the third. This method returns a JWT as a string.
     def encode_token(payload)
