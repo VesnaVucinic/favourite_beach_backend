@@ -8,6 +8,7 @@ class Api::V1::AuthController < ApplicationController
     end
 
     def create
+      # @user = User.find_or_create_by(email: user_login_params[:email])
       @user = User.find_by(email: user_login_params[:email])
       # User#authenticate comes from BCrypt
       if @user && @user.authenticate(user_login_params[:password])

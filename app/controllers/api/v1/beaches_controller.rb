@@ -5,7 +5,13 @@ class Api::V1::BeachesController < ApplicationController
     def index
         beaches = Beach.all #when I am dealing with views I have to pass instance variables to the view but renderin JSON don't eed instance variable can be just beach 
         #  render json: beaches
-        render json: BeachSerializer.new(beaches) #render new instance of beach serializer 
+        render json: BeachSerializer.new(beaches) #render new instance of beach serializer
+        # options = {
+    #   # inlcude associated category
+    #   include: [:country]
+    # }
+    # # #to add a relationship in serializer
+    #     render json: BeachSerializer.new(beaches, options) 
     end
 
     def show
@@ -37,7 +43,7 @@ class Api::V1::BeachesController < ApplicationController
     private
 
     def beach_params
-        params.require(:beach).permit(:id, :name, :location, :description, :image_url, :country_id)
+        params.require(:beach).permit(:id, :name, :location, :description, :image_url, :country_id, :user_id, :country)
     end
     
 end
