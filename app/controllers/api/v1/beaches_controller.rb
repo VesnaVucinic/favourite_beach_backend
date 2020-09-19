@@ -40,10 +40,18 @@ class Api::V1::BeachesController < ApplicationController
         end
     end
 
+    def destroy
+        # byebug
+        beach = Beach.find_by(id: params[:id])
+        beach.destroy
+        # render json: {beachId: beach.id}
+        # render json: BeachSerializer.new(beach), status: :accepted
+    end
+
     private
 
     def beach_params
-        params.require(:beach).permit(:id, :name, :location, :description, :image_url, :country_id, :user_id, :country)
+        params.require(:beach).permit(:id, :name, :location, :description, :image_url, :country_id, :user_id)
     end
     
 end
